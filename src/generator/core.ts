@@ -2,7 +2,7 @@ import { GeneratorOptions } from './';
 import { join } from 'path';
 import { existsSync, readFileSync, watch as fsWatch } from 'fs';
 import { WssStart, WssSend } from '../server';
-
+import { createHttpServer } from '../server';
 const readTextFileSync = (file: string) => readFileSync(file, "utf-8");
 export default class FrostGenerator {
     options: GeneratorOptions = {
@@ -10,7 +10,7 @@ export default class FrostGenerator {
         buildDir: "build",
         staticDir: "static",
         HTMLcompressionLevel: 2,
-        port: 3001
+        port: 9999
     }
 
     constructor(opts?: GeneratorOptions) {
@@ -19,15 +19,15 @@ export default class FrostGenerator {
         }
     }
     
-    async serve(port: number): Promise<void> {
-        WssStart(port);
+    async serve(): Promise<void> {
+        WssStart(this.options.port);
 
         const onChange = () => {
             WssSend('reload');
         }
         fsWatch(this.options.srcDir, onChange);
-
-       
+      
+        await createHttpServer(this.options);
         
     }
     loadConfigFile(): void {
