@@ -1,0 +1,31 @@
+{
+  "name": "frost",
+  "version": "1.0.0",
+  "description": "🚀 A static site generator.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevSnowflake/frost.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DevSnowflake/frost/issues"
+  },
+  "homepage": "https://github.com/DevSnowflake/frost#readme",
+  "devDependencies": {
+    "@types/ejs": "^3.1.0",
+    "@types/html-minifier": "^4.0.1",
+    "@types/node": "^16.11.1",
+    "@types/ws": "^8.2.0"
+  },
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "html-minifier": "^4.0.0",
+    "ws": "^8.2.3"
+  }
+}
