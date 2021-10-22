@@ -3,14 +3,17 @@ import { join } from 'path';
 import { existsSync, readFileSync, watch as fsWatch } from 'fs';
 import { WssStart, WssSend } from '../server';
 import { createHttpServer } from '../server';
+import path from 'node:path';
+import RecursiveReadDir from '../utils/recursiveReadDir';
+
 const readTextFileSync = (file: string) => readFileSync(file, "utf-8");
 export default class FrostGenerator {
     options: GeneratorOptions = {
-        srcDir: "src",
-        buildDir: "build",
+        srcDir: "source",
+        buildDir: "builde",
         staticDir: "static",
         HTMLcompressionLevel: 2,
-        port: 9999
+        port: 3000
     }
 
     constructor(opts?: GeneratorOptions) {
@@ -26,8 +29,13 @@ export default class FrostGenerator {
             WssSend('reload');
         }
         fsWatch(this.options.srcDir, onChange);
-      
-        await createHttpServer(this.options);
+        let pages = new Array<string>();
+          RecursiveReadDir(this.options.srcDir, (p: string) => {
+             if(path.extname(p) == ".frost") {
+                 pages.push(p);
+             }
+         })
+        await createHttpServer(pages, this.options);
         
     }
     loadConfigFile(): void {

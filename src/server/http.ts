@@ -1,35 +1,32 @@
-import { createServer } from 'http';
+import http from 'node:http';
 import { GeneratorOptions } from '../generator';
 import path from 'node:path';
 import fs from 'node:fs';
-import { renderHtml } from '../fileHandler';
-const serverCreate =async (options: GeneratorOptions): Promise<void> => {
+import getData from '../utils/getData';
+import * as frost from 'frost-walker';
+const serverCreate =async (pages: Array<string>, options: GeneratorOptions): Promise<void> => {
+const server = http.createServer(async (request: http.IncomingMessage, response: http.ServerResponse) => {
+    response.writeHead(200, {'Content-Type': 'text/html'}); 
+    let url = request.url;
+   console.log(pages);
+   let data = await getData(options);
+   for(const page of pages) {
+    let base = path.basename(page, '.frost');
+    console.log(base);
+    if(url == `/${base}`) {
+        console.log(path.join(process.cwd(),page));
+        const rendered = frost.renderFile(path.join(process.cwd(),page), data);
+        console.log(rendered);
+        response.write(rendered);
+        response.end();
+    }
+   }
 
-    createServer(async(req, res) => {
-        let url = `${req.url}`.slice(1);
-        if(`${req.url}`.endsWith("/")){
-          url += "index.html";
-        }
+})
 
-        const staticPath = path.join(options.staticDir, url);
-        
-        if(fs.existsSync(staticPath) && fs.lstatSync(staticPath).isDirectory()) {
-            res.write(fs.readFileSync(staticPath, 'utf-8'))
-            res.end();
-        }else if(url.endsWith(".html")){
-            res.write(await renderHtml(url, options));
-            res.end();
-        }
-        else { 
-            res.write("404: Not Found");
-            res.end();
-        }
-
-
-
-    }).listen(options.port, () => {
-        console.log(`Running on http://localhost:${options.port}/`)
-    })
+server.listen(2021, () => {
+    console.log("Server has started");
+})
 }
 
 export { serverCreate as createHttpServer };
