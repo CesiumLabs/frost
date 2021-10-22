@@ -22,8 +22,6 @@ export default class FrostGenerator {
     }
 
     async serve(port: number): Promise<void> {
-        WssStart(port);
-
         const onChange = () => {
             WssSend("reload");
         };
@@ -34,7 +32,8 @@ export default class FrostGenerator {
                 pages.push(p);
             }
         });
-        await createHttpServer(port, pages, this.options);
+        const server = await createHttpServer(port, pages, this.options);
+        WssStart(server);
     }
     loadConfigFile(): void {
         let name: string = "frost";
