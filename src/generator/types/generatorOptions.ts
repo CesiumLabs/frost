@@ -3,5 +3,4 @@ export interface GeneratorOptions {
     buildDir: string;
     staticDir: string;
     HTMLcompressionLevel: number;
-    port: number;
 }

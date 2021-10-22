@@ -10,10 +10,9 @@ const readTextFileSync = (file: string) => readFileSync(file, "utf-8");
 export default class FrostGenerator {
     options: GeneratorOptions = {
         srcDir: "source",
-        buildDir: "builde",
+        buildDir: "build",
         staticDir: "static",
-        HTMLcompressionLevel: 2,
-        port: 3000
+        HTMLcompressionLevel: 2
     };
 
     constructor(opts?: GeneratorOptions) {
@@ -22,8 +21,8 @@ export default class FrostGenerator {
         }
     }
 
-    async serve(): Promise<void> {
-        WssStart(this.options.port);
+    async serve(port: number): Promise<void> {
+        WssStart(port);
 
         const onChange = () => {
             WssSend("reload");
@@ -35,7 +34,7 @@ export default class FrostGenerator {
                 pages.push(p);
             }
         });
-        await createHttpServer(pages, this.options);
+        await createHttpServer(port, pages, this.options);
     }
     loadConfigFile(): void {
         let name: string = "frost";
