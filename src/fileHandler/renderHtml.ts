@@ -4,7 +4,7 @@ import { GeneratorOptions } from '../generator';
 import { renderPage } from './';
 import getData from '../utils/getData';
 
-const renderHtml = async (url: string, options: GeneratorOptions): string => {
+const renderHtml = async (url: string, options: GeneratorOptions): Promise<string> => {
     const filePath: string = path.join(options.srcDir, url);
     
     const fileR: string = `${filePath.substring(0, filePath.length - 4)}ejs`;
