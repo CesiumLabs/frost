@@ -3,7 +3,8 @@ import { join } from 'path';
 import { existsSync, readFileSync, watch as fsWatch } from 'fs';
 import { WssStart, WssSend } from '../server';
 import { createHttpServer } from '../server';
-const readTextFileSync = (file: string) => readFileSync(file, "utf-8");
+const readTextFileSync = (file: string): string => readFileSync(file, "utf-8");
+
 export default class FrostGenerator {
     options: GeneratorOptions = {
         srcDir: "src",
@@ -14,45 +15,39 @@ export default class FrostGenerator {
     }
 
     constructor(opts?: GeneratorOptions) {
-        if(opts) {
-            this.options = {...this.options, ...opts};
+        if (opts) {
+            this.options = { ...this.options, ...opts };
         }
     }
     
     async serve(): Promise<void> {
         WssStart(this.options.port);
-
-        const onChange = () => {
-            WssSend('reload');
-        }
-        fsWatch(this.options.srcDir, onChange);
-      
+        fsWatch(this.options.srcDir, () => WssSend('reload'));
         await createHttpServer(this.options);
-        
     }
+    
     loadConfigFile(): void {
         let name: string = "frost";
         let jsonConfigFile = join(process.cwd(), `${name}.json`);
 
-        if(existsSync(jsonConfigFile)) {
+        if (existsSync(jsonConfigFile)) {
             try{
                 this.options = {
-                  ...this.options,
-                  ...JSON.parse(readTextFileSync(jsonConfigFile))
+                    ...this.options,
+                    ...JSON.parse(readTextFileSync(jsonConfigFile))
                 };
+                
                 this.configChanged();
-        
                 console.log(`Using Configuration file ${name}.json as detected.`)
-              }catch(e){
+            } catch(e) {
                 console.log(`unable to load configuration file: ${e}`);
-              }
+            }
         }
     }
 
-    private configChanged(): void{
-    
+    private configChanged(): void {
         this.options.srcDir = join(process.cwd(), this.options.srcDir);
         this.options.buildDir = join(process.cwd(), this.options.buildDir);
         this.options.staticDir = join(this.options.srcDir, this.options.staticDir);
-      }
+    }
 }
