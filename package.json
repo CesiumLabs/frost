@@ -26,14 +26,15 @@
     "homepage": "https://github.com/DevSnowflake/frost#readme",
     "devDependencies": {
         "@types/html-minifier": "^4.0.1",
+        "@types/marked": "^3.0.2",
         "@types/node": "^16.11.1",
         "@types/ws": "^8.2.0",
         "prettier": "^2.4.1",
         "typescript": "^4.4.4"
     },
     "dependencies": {
-        "frost-walker": "^0.0.5",
         "html-minifier": "^4.0.0",
+        "marked": "^3.0.7",
         "picocolors": "^1.0.0",
         "ws": "^8.2.3"
     }

@@ -2,7 +2,7 @@ import http from "node:http";
 import { GeneratorOptions } from "../generator";
 import path from "node:path";
 import getData from "../utils/getData";
-import * as frost from "frost-walker";
+import * as frost from "../FrostWalker/index";
 import * as logger from "../logger";
 import pico from "picocolors";
 const serverCreate = async (port: number, pages: Array<string>, options: GeneratorOptions): Promise<http.Server> => {
