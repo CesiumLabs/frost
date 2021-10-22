@@ -1,14 +1,10 @@
 import { FrostError } from "./FrostError";
-
-const PossibleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ_";
+import { generate as randomNameGen } from "../utils/genName";
 
 export function compile<T = unknown>(source: string, options?: T) {
     if (!source || typeof source !== "string") return "";
 
-    let randomName = "";
-    for (let i = 0; i < 5; i++) {
-        randomName += `${PossibleChars.charAt(Math.floor(Math.random() * PossibleChars.length))}${i}`;
-    }
+    let randomName = randomNameGen(5);
 
     try {
         return new Function(
