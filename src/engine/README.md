@@ -25,13 +25,19 @@ Here are the syntax used by Frost Walker:
   <frost embed>}</frost>
   ```
 
+- `<frost typescript>...</frost>`
+  This tag allows you to write TypeScript which will be transpiled to JavaScript and wrapped inside `<script></script>`.
+  TypeScript is also supported in `#include` syntax if the file extension ends with `.ts`. 
+
+- `<frost markdown>...</frost>`
+  This tag allows you to write markdown which is later converted into HTML.
+  Markdown is also supported in `#include` syntax if the file extension ends with `.md`.
+
 - `<!-- ... -->`
   This syntax is used for writing comments.
 
 - `#include "path"` or `#import "path"`
   This is another special syntax in frost which can be used to include another component to current file.
-  The special thing about this is, if the file path ends with `.md`, the contents are treated as markdown and are rendered
-  to HTML before executing JavaScript contents. If the file extension is something else, it just renders them as it is.
   This syntax can be used inside any file you would like. The file path must be in `"` instead of `'`. Example:
 
   ```m
