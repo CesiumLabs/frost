@@ -4,13 +4,11 @@ import path from "path";
 import { FrostError } from "../utils/FrostError";
 import { FrostTag } from "../utils/constants";
 import { compile as TypeScript } from "./typescript";
-
+import { stripIndents } from 'common-tags';
 const IMPORT_REGEX = new RegExp(FrostTag.IMPORT, "g");
 const COMMENT_REGEX = new RegExp(FrostTag.COMMENT, "g");
 const TYPESCRIPT_EMBED_REGEX = new RegExp(FrostTag.TYPESCRIPT, "g");
 const MARKDOWN_EMBED_REGEX = new RegExp(FrostTag.MARKDOWN, "g");
-
-const stripIndents = (t: string): string => string.replace(/^[^\S\n]+/gm, "");
 
 const clean = (t: string): string =>
     stripIndents(t)

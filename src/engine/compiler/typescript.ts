@@ -15,7 +15,10 @@ const defaultOptions: ts.CompilerOptions = {
     lib: ["dom", "ES5"]
 };
 
-export function compile(source: string, options: ts.CompilerOptions = defaultOptions): string {
+export function compile(source: string, options?: ts.CompilerOptions): string {
+    if(!options) {
+        options = defaultOptions;
+    }
     const code = ts.transpileModule(source, {
         compilerOptions: options
     });
