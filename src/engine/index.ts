@@ -1,5 +1,5 @@
-export { compile } from "./compiler";
-export { converter } from "./converter";
-export { render, renderFile } from "./render";
-export { FrostError } from "./FrostError";
-export * as middleware from "./middleware";
+export { compile } from "./compiler/compiler";
+export { converter } from "./compiler/converter";
+export { render, renderFile } from "./utils/render";
+export { FrostError } from "./utils/FrostError";
+export * as middleware from "./utils/middleware";

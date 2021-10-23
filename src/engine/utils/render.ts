@@ -1,6 +1,6 @@
 import { readFileSync, existsSync } from "node:fs";
-import { compile } from "./compiler";
-import { converter } from "./converter";
+import { compile } from "../compiler/compiler";
+import { converter } from "../compiler/converter";
 import { FrostError } from "./FrostError";
 import path from "node:path";
 
