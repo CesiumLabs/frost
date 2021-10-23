@@ -17,7 +17,7 @@ const serverCreate = async (port: number, pages: Array<string>, options: Generat
                 let rendered = renderHTML(path.join(process.cwd(), page), data);
                 rendered += `<script>var ssgs=new WebSocket("ws://localhost:${port}");ssgs.onmessage=function(event){if(event.data==="reload"){window.location.reload()}}</script>`;
                 response.write(rendered);
-                logger.info(`/${base} - successfully built ${pico.green("✔︎")}`);
+                logger.info(`/ - successfully built ${pico.green("✔︎")}`);
                 response.end();
             } else if (url == `/${base}`) {
                 let rendered = renderHTML(path.join(process.cwd(), page), data);

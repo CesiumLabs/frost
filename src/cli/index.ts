@@ -6,7 +6,6 @@ f.loadConfigFile();
 const args: string = process.argv[2];
 const options: string = process.argv[3];
 const optionsArg = process.argv[4];
-
 let HELP_RESPONSE = `
 
 ${pico.cyan(pico.bold("HELP MENU"))}
@@ -40,6 +39,12 @@ if (args == "--serve" || args == "-s") {
 
 if (args == "--help" || args == "-h") {
     console.log(HELP_RESPONSE);
-} else if (!args) {
+} 
+if(args == "--build" || args == "-b") {
+    f.build();
+}
+else if (!args) {
     console.log(HELP_RESPONSE);
 }
+
+

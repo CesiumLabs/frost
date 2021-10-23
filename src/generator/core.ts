@@ -4,7 +4,12 @@ import { existsSync, readFileSync, watch as fsWatch } from "fs";
 import { WssStart, WssSend } from "../server";
 import { createHttpServer } from "../server";
 import path from "node:path";
+import fs from 'node:fs';
+import { info } from  '../logger';
+import deleteDir from "../utils/deleteDir";
+import { copyIntoBuild } from '../builder/copyIntoBuild';
 import RecursiveReadDir from "../utils/recursiveReadDir";
+import { copyStatic } from "../builder/copyStatic";
 
 const readTextFileSync = (file: string) => readFileSync(file, "utf-8");
 export default class FrostGenerator {
@@ -34,6 +39,24 @@ export default class FrostGenerator {
         });
         const server = await createHttpServer(port, pages, this.options);
         WssStart(server);
+    }
+
+    async build(): Promise<void> {
+        let pages = new Array<string>();
+        RecursiveReadDir(this.options.srcDir, (p: string) => {
+            if (path.extname(p) == ".frost") {
+                pages.push(p);
+            }
+        });
+        if(fs.existsSync(this.options.buildDir)){
+                 deleteDir(this.options.buildDir);
+        }
+
+        fs.mkdirSync(this.options.buildDir);
+
+        info("Building files...");
+        await copyIntoBuild(this.options, pages);
+        await copyStatic(this.options);
     }
     loadConfigFile(): void {
         let name: string = "frost";
