@@ -7,7 +7,9 @@
         "build"
     ],
     "scripts": {
-        "format": "prettier --write src/**/*.ts"
+        "format": "prettier --write src/**/*.ts",
+        "dev": "ts-node src/cli/index.ts --serve --port 3000",
+        "build": "rimraf build && tsc"
     },
     "repository": {
         "type": "git",
@@ -31,6 +33,8 @@
         "@types/node": "^16.11.1",
         "@types/ws": "^8.2.0",
         "prettier": "^2.4.1",
+        "rimraf": "^3.0.2",
+        "ts-node": "^10.4.0",
         "typescript": "^4.4.4"
     },
     "dependencies": {

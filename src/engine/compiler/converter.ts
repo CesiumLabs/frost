@@ -63,8 +63,8 @@ export function converter<T>(source: string, data?: T, ext?: string) {
         const tsSource = source.matchAll(TYPESCRIPT_EMBED_REGEX);
 
         for (const matched of tsSource) {
-            if (!matched || !matched[2]) continue;
-            const ts = TypeScript(matched[2]);
+            if (!matched || !matched[1]) continue;
+            const ts = TypeScript(matched[1]);
             source = source.replace(matched[0], stripIndents`<script>\n${ts}\n</script>`);
         }
     }
@@ -73,8 +73,8 @@ export function converter<T>(source: string, data?: T, ext?: string) {
         const mdSource = source.matchAll(MARKDOWN_EMBED_REGEX);
 
         for (const matched of mdSource) {
-            if (!matched || !matched[2]) continue;
-            const md = clean(marked(stripIndents(matched[2])));
+            if (!matched || !matched[1]) continue;
+            const md = clean(marked(stripIndents(matched[1])));
             source = source.replace(matched[0], md);
         }
     }

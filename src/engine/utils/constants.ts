@@ -1,8 +1,8 @@
 export enum FrostTag {
-    COMMENT = "<!--((.|\n)+?)-->",
-    TYPESCRIPT = "<frost typescript>((.|\n)+?)</frost>",
-    MARKDOWN = "<frost markdown>((.|\n)+?)</frost>",
+    COMMENT = "<!--([Ss]+)-->",
+    TYPESCRIPT = "<frost typescript>([Ss]+)</frost>",
+    MARKDOWN = "<frost markdown>([Ss]+)</frost>",
     IMPORT = '#(include|import) "(.+)"',
-    JS_RENDER = "<frost>((.|\n)+?)</frost>",
-    JS_EMBED = "<frost embed>((.|\n)+?)</frost>"
+    JS_RENDER = "<frost>([Ss]+)</frost>",
+    JS_EMBED = "<frost embed>([Ss]+)</frost>"
 }
