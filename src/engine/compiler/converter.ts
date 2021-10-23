@@ -3,7 +3,6 @@ import fs from "node:fs";
 import path from "path";
 import { FrostError } from "../utils/FrostError";
 import { FrostTag } from "../utils/constants";
-import { stripIndents } from "common-tags";
 import { compile as TypeScript } from "./typescript";
 
 const IMPORT_REGEX = new RegExp(FrostTag.IMPORT, "g");
@@ -11,7 +10,9 @@ const COMMENT_REGEX = new RegExp(FrostTag.COMMENT, "g");
 const TYPESCRIPT_EMBED_REGEX = new RegExp(FrostTag.TYPESCRIPT, "g");
 const MARKDOWN_EMBED_REGEX = new RegExp(FrostTag.MARKDOWN, "g");
 
-const clean = (t: string) =>
+const stripIndents = (t: string): string => string.replace(/^[^\S\n]+/gm, "");
+
+const clean = (t: string): string =>
     stripIndents(t)
         .replace(COMMENT_REGEX, "")
         .replace(/&quot;/g, '"')
