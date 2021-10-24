@@ -22,15 +22,13 @@ npm i -g frostjs
 -   Simple
     - Run it on your local machine
 
+     ```sh
+     $ frost --serve
      ```
-       frost --serve
-
-      ```
       - Build the static site
+        ```sh
+        $ frost -- build
         ```
-          frost -- build
-
-          ```
 
 ### Configuration
 
@@ -43,9 +41,9 @@ To overwrite the custom configuration file, you can use `--config {file}.json` a
  
  {
     "srcDir": "source",
-        "buildDir": "build",
-        "staticDir": "static",
-        "HTMLcompressionLevel": 2
+    "buildDir": "build",
+    "staticDir": "static",
+    "HTMLcompressionLevel": 2
  }
 
  ```
@@ -82,8 +80,8 @@ Here's an example usage:
     <p> The Author is:</p>
     <p>
         <frost>author</frost>
-        </p>
-    </body>
+    </p>
+</body>
 
 ```
 
@@ -91,12 +89,12 @@ Here's an example usage:
 
 ```html
 
-    <body>
+<body>
     <p> The Author is:</p>
     <p>
         rhydderchc
-        </p>
-    </body>
+    </p>
+</body>
 
 ```
 
@@ -111,7 +109,7 @@ Yes, with the frost engine you can render markdown with ease.
 
 <p>
     <frost markdown> # This is a template </frost>
-    </p>
+</p>
 ```
 
   - Including an external markdown file
@@ -119,8 +117,8 @@ Yes, with the frost engine you can render markdown with ease.
     ```html
 
     <p>
-        #include ./mark.md
-        </p>
+        #include "./mark.md"
+    </p>
     ```
 
 - Using TypeScript
@@ -137,6 +135,6 @@ With frost's engine, using typescript is a piece of cake.
 
   ```html
    <p>
-       #include ./hello.ts
-       </p>
+       #include "./hello.ts"
+   </p>
    ```
