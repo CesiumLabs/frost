@@ -7,7 +7,8 @@
         "rootDir": "./src",
         "strict": true,
         "esModuleInterop": true,
-        "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
+        "forceConsistentCasingInFileNames": true,
+        "downlevelIteration": true
     },
 
     "exclude": ["__test__"]

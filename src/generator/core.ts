@@ -65,7 +65,6 @@ export default class FrostGenerator {
         if (existsSync(jsonConfigFile)) {
             try {
                 this.options = {
-                    ...this.options,
                     ...JSON.parse(readTextFileSync(jsonConfigFile))
                 };
                 this.configChanged();
