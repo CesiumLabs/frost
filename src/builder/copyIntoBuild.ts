@@ -11,7 +11,7 @@ export async function copyIntoBuild(options: GeneratorOptions, pages: Array<stri
     for (const page of pages) {
         let baseName = path.basename(page, ".frost");
         let targetDir;
-        if (path.basename(path.dirname(page)) == "source") targetDir = options.buildDir;
+        if (path.basename(path.dirname(page)) == options.srcDir) targetDir = options.buildDir;
         else {
             targetDir = path.join(options.buildDir, path.basename(path.dirname(page)));
         }
