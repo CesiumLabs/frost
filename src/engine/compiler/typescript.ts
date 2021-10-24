@@ -16,7 +16,7 @@ const defaultOptions: ts.CompilerOptions = {
 };
 
 export function compile(source: string, options?: ts.CompilerOptions): string {
-    if(!options) {
+    if (!options) {
         options = defaultOptions;
     }
     const code = ts.transpileModule(source, {

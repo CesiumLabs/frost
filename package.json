@@ -9,7 +9,8 @@
     "scripts": {
         "format": "prettier --write src/**/*.ts",
         "dev": "ts-node src/cli/index.ts --serve --port 3000",
-        "build": "rimraf build && tsc"
+        "build": "rimraf build && tsc",
+        "test": "node __test__/test.js ./check.js"
     },
     "repository": {
         "type": "git",

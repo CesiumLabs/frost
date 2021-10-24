@@ -39,12 +39,9 @@ if (args == "--serve" || args == "-s") {
 
 if (args == "--help" || args == "-h") {
     console.log(HELP_RESPONSE);
-} 
-if(args == "--build" || args == "-b") {
-    f.build();
 }
-else if (!args) {
+if (args == "--build" || args == "-b") {
+    f.build();
+} else if (!args) {
     console.log(HELP_RESPONSE);
 }
-
-

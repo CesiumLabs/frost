@@ -4,10 +4,10 @@ import { existsSync, readFileSync, watch as fsWatch } from "fs";
 import { WssStart, WssSend } from "../server";
 import { createHttpServer } from "../server";
 import path from "node:path";
-import fs from 'node:fs';
-import { info } from  '../logger';
+import fs from "node:fs";
+import { info } from "../logger";
 import deleteDir from "../utils/deleteDir";
-import { copyIntoBuild } from '../builder/copyIntoBuild';
+import { copyIntoBuild } from "../builder/copyIntoBuild";
 import RecursiveReadDir from "../utils/recursiveReadDir";
 import { copyStatic } from "../builder/copyStatic";
 
@@ -48,8 +48,8 @@ export default class FrostGenerator {
                 pages.push(p);
             }
         });
-        if(fs.existsSync(this.options.buildDir)){
-                 deleteDir(this.options.buildDir);
+        if (fs.existsSync(this.options.buildDir)) {
+            deleteDir(this.options.buildDir);
         }
 
         fs.mkdirSync(this.options.buildDir);
