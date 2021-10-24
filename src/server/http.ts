@@ -43,7 +43,57 @@ function renderHTML(page: string, data: any = {}) {
         if (process.env.NODE_ENV !== "production") {
             const error = err as Error;
             console.error(error);
-            return `<pre>${error.stack}</pre>`;
+            return `
+            <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error</title>
+</head>
+<body>
+    <div class="__exception__container">
+        <p class="__exception__title"><strong>Exception</strong></p>
+        <p class="__exception__message"><strong>${error.message}</strong></p>
+        <div class="__exception__stack">
+            ${error.stack}
+        </div>
+    </div>
+</body>
+
+<style scoped>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .__exception__container {
+        background-color: rgb(37, 37, 37);
+        color: #FFF;
+        height: 100vh;
+        font-family: Helvetica, sans-serif;
+        padding: 3rem 4rem;
+        font-size: 1rem;
+    }
+
+    .__exception__title {
+        margin-bottom: 0.5rem;
+        color: rgb(241, 88, 60);
+    }
+
+    .__exception__message {
+        margin-bottom: 0.3rem;
+        font-size: 1.5rem;
+    }
+
+    .__exception__stack {
+        font-size: 1.2rem;
+        color: rgb(99, 99, 99);
+    }
+</style>
+</html>
+            `;
         } else {
             throw err;
         }
