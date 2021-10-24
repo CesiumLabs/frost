@@ -17,7 +17,8 @@ export default class FrostGenerator {
         srcDir: "source",
         buildDir: "build",
         staticDir: "static",
-        HTMLcompressionLevel: 2
+        HTMLcompressionLevel: 2,
+        metadataFile: "frost.metadata.json"
     };
 
     constructor(opts?: GeneratorOptions) {

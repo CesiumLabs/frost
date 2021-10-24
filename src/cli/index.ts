@@ -42,6 +42,7 @@ if (args == "--help" || args == "-h") {
 }
 if (args == "--build" || args == "-b") {
     f.build();
-} else if (!args) {
+} 
+else if (!args) {
     console.log(HELP_RESPONSE);
 }
