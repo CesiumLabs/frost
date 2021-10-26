@@ -32,7 +32,7 @@ export function compile(source: string, options?: ts.CompilerOptions): string {
         // const fileName = `${generate(7)}.ts`;
         // const sourceFile = ts.createSourceFile(fileName, source, options.target ?? ts.ScriptTarget.ES2015, true);
         // const host = ts.createCompilerHost(options);
-        // host.writeFile = (fileName: string, contents: string) => createdFiles[fileName] = contents;
+        // host.writeFile = (_: string, contents: string) => createdFiles[fileName] = contents;
         // host.readFile = () => source;
 
         // const tsProgram = ts.createProgram([sourceFile.fileName], options, host);
