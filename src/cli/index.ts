@@ -11,17 +11,17 @@ let HELP_RESPONSE = `
 ${pico.cyan(pico.bold("HELP MENU"))}
 
 
-Frost is a static site generator made by the developers at devsnowflake. 
+Frost is a static site generator made by the developers at SnowflakeDev Community. 
 If you have any problems with the package, feel free to open an issue at
-https://github.com/devsnowflake/frost/issues
+https://github.com/DevSnowflake/frost/issues
 
 ${pico.magenta("Feel like Contributing?")}
-https://github.com/devsnowflake/frost/pulls. Open a pull request with your feature or
+https://github.com/DevSnowflake/frost/pulls. Open a pull request with your feature or
 fix. Any pull requests are welcome. 
 
 ${pico.magenta("Do you like the module?")}
 Star it on github, it means a lot.
-https://github.com/devsnowflake/frost
+https://github.com/DevSnowflake/frost
 
 ${pico.bold("Commands")}
 -----------------------------------
@@ -42,7 +42,6 @@ if (args == "--help" || args == "-h") {
 }
 if (args == "--build" || args == "-b") {
     f.build();
-} 
-else if (!args) {
+} else if (!args) {
     console.log(HELP_RESPONSE);
 }
