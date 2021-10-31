@@ -65,21 +65,23 @@ export default class FrostGenerator {
 
         if (existsSync(jsonConfigFile)) {
             try {
+                const configContent = readTextFileSync(jsonConfigFile);
                 this.options = {
-                    ...JSON.parse(readTextFileSync(jsonConfigFile))
+                    ...JSON.parse(configContent)
                 };
+
                 this.configChanged();
 
-                console.log(`Using Configuration file ${name}.json as detected.`);
+                console.log(`Using Configuration file ${name}.json as detected (${jsonConfigFile})`);
             } catch (e) {
-                console.log(`unable to load configuration file: ${e}`);
+                console.warn(`Unable to load configuration file: ${e}`);
             }
         }
     }
 
     private configChanged(): void {
-        this.options.srcDir = join(process.cwd(), this.options.srcDir);
-        this.options.buildDir = join(process.cwd(), this.options.buildDir);
-        this.options.staticDir = join(this.options.srcDir, this.options.staticDir);
+        this.options.srcDir = join(process.cwd(), this.options.srcDir || "");
+        this.options.buildDir = join(process.cwd(), this.options.buildDir || "");
+        this.options.staticDir = join(this.options.srcDir || "", this.options.staticDir || "");
     }
 }
