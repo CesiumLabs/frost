@@ -9,6 +9,7 @@ const IMPORT_REGEX = new RegExp(FrostTag.IMPORT, "g");
 const COMMENT_REGEX = new RegExp(FrostTag.COMMENT, "g");
 const TYPESCRIPT_EMBED_REGEX = new RegExp(FrostTag.TYPESCRIPT, "g");
 const MARKDOWN_EMBED_REGEX = new RegExp(FrostTag.MARKDOWN, "g");
+const importContainer = new Map<string, string>();
 
 const clean = (t: string): string =>
     stripIndents(t)
@@ -37,20 +38,30 @@ function inject(text: string, data: any = {}): string {
         if (filePath.startsWith("./") && data?.__dirname) filePathFinal = `${data.__dirname}/${filePath.replace(/.\//, "")}`;
         if (!fs.existsSync(filePathFinal)) throw new FrostError(`Could not locate include file "${filePath}"`);
 
-        const fileData = fs.readFileSync(filePathFinal, { encoding: "utf-8" }).replace(COMMENT_REGEX, "");
+        importContainer.set("FROST_LAST_IMPORT_PATH", filePath);
 
-        let finalCode = fileData;
+        let finalCode = importContainer.get(filePathFinal);
+        if (finalCode === undefined) { // strictly check undefined
+            finalCode = fs.readFileSync(filePathFinal, { encoding: "utf-8" }).replace(COMMENT_REGEX, "");
+            importContainer.set(filePathFinal, finalCode);
+        }
 
         if (filePath.endsWith(".md")) {
-            finalCode = clean(marked(fileData));
+            finalCode = clean(marked(finalCode));
         } else if (filePath.endsWith(".ts")) {
-            finalCode = stripIndents`<script>\n${TypeScript(fileData)}\n</script>`;
+            finalCode = stripIndents`<script>\n${TypeScript(finalCode)}\n</script>`;
         }
 
         childText = stripIndents(childText.replace(matched[0], finalCode));
     }
 
-    if (!childText.match(IMPORT_REGEX)) return stripIndents(childText);
+    if (!childText.match(IMPORT_REGEX)) {
+        // reset import container once conversion has finished
+        importContainer.clear();
+        return stripIndents(childText);
+    }
+
+    // recursively do conversion until there are no imports left
     return inject(childText, data);
 }
 
@@ -78,5 +89,17 @@ export function converter<T>(source: string, data?: T, ext?: string) {
         }
     }
 
-    return inject(ext === "md" ? clean(marked(stripIndents(source))) : source, data || {});
+    try {
+        return inject(ext === "md" ? clean(marked(stripIndents(source))) : source, data || {});
+    } catch(err) {
+        const error = err as Error;
+
+        if (error.name === "RangeError" && error.message === "Maximum call stack size exceeded") {
+            throw new RangeError(`Too much recursion detected! Possible cause: circular imports/includes`);
+        }
+
+        console.error(error);
+
+        return "";
+    }
 }
