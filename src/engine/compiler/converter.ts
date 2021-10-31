@@ -41,7 +41,8 @@ function inject(text: string, data: any = {}): string {
         importContainer.set("FROST_LAST_IMPORT_PATH", filePath);
 
         let finalCode = importContainer.get(filePathFinal);
-        if (finalCode === undefined) { // strictly check undefined
+        if (finalCode === undefined) {
+            // strictly check undefined
             finalCode = fs.readFileSync(filePathFinal, { encoding: "utf-8" }).replace(COMMENT_REGEX, "");
             importContainer.set(filePathFinal, finalCode);
         }
@@ -91,7 +92,7 @@ export function converter<T>(source: string, data?: T, ext?: string) {
 
     try {
         return inject(ext === "md" ? clean(marked(stripIndents(source))) : source, data || {});
-    } catch(err) {
+    } catch (err) {
         const error = err as Error;
 
         if (error.name === "RangeError" && error.message === "Maximum call stack size exceeded") {
