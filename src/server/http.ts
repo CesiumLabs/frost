@@ -38,6 +38,7 @@ const serverCreate = async (port: number, pages: Array<string>, options: Generat
                     .split("/")
                     .filter((_, posx) => posx < r.split("/").length - 1)
                     .join("/");
+                    const re = path.basename(root, ".frost");
                 if (url == `/${base}/`) {
                     if (path.basename(root, ".frost") != "index") return;
                     let rendered = renderHTML(path.join(process.cwd(), page), data);
@@ -47,11 +48,11 @@ const serverCreate = async (port: number, pages: Array<string>, options: Generat
                     response.end();
                 }
 
-                if (url == `/${base}/${root}`) {
+                if (url == `/${base}/${re}`) {
                     let rendered = renderHTML(path.join(process.cwd(), page), data);
                     rendered += `<script>var ssgs=new WebSocket("ws://localhost:${port}");ssgs.onmessage=function(event){if(event.data==="reload"){window.location.reload()}}</script>`;
                     response.write(rendered);
-                    logger.info(`/${base}/${root} - successfully built ${pico.green("✔︎")}`);
+                    logger.info(`/${base}/${re} - successfully built ${pico.green("✔︎")}`);
                     response.end();
                 }
             }
