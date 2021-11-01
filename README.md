@@ -33,4 +33,4 @@ npm i -g frostjs
      $ frost -- build
      ```
 
-**[Learn more about Frost](/frost/intro)**
+**[Learn more about Frost](/intro)**
