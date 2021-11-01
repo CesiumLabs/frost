@@ -38,7 +38,7 @@ const serverCreate = async (port: number, pages: Array<string>, options: Generat
                     .split("/")
                     .filter((_, posx) => posx < r.split("/").length - 1)
                     .join("/");
-                    const re = path.basename(root, ".frost");
+                const re = path.basename(root, ".frost");
                 if (url == `/${base}/`) {
                     if (path.basename(root, ".frost") != "index") return;
                     let rendered = renderHTML(path.join(process.cwd(), page), data);

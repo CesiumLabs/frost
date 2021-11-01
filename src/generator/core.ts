@@ -15,7 +15,7 @@ const readTextFileSync = (file: string) => readFileSync(file, "utf-8");
 export default class FrostGenerator {
     options: GeneratorOptions = {
         srcDir: "source",
-        buildDir: "build",
+        buildDir: "br",
         staticDir: "static",
         HTMLcompressionLevel: 2,
         metadataFile: "frost.metadata.json"
@@ -67,6 +67,7 @@ export default class FrostGenerator {
             try {
                 const configContent = readTextFileSync(jsonConfigFile);
                 this.options = {
+                    ...this.options,
                     ...JSON.parse(configContent)
                 };
 
