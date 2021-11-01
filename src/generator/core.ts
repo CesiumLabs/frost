@@ -10,12 +10,11 @@ import deleteDir from "../utils/deleteDir";
 import { copyIntoBuild } from "../builder/copyIntoBuild";
 import RecursiveReadDir from "../utils/recursiveReadDir";
 import { copyStatic } from "../builder/copyStatic";
-
 const readTextFileSync = (file: string) => readFileSync(file, "utf-8");
 export default class FrostGenerator {
     options: GeneratorOptions = {
         srcDir: "source",
-        buildDir: "br",
+        buildDir: "build",
         staticDir: "static",
         HTMLcompressionLevel: 2,
         metadataFile: "frost.metadata.json"
@@ -66,13 +65,8 @@ export default class FrostGenerator {
         if (existsSync(jsonConfigFile)) {
             try {
                 const configContent = readTextFileSync(jsonConfigFile);
-                this.options = {
-                    ...this.options,
-                    ...JSON.parse(configContent)
-                };
-
-                this.configChanged();
-
+                this.options = Object.assign(this.options, JSON.parse(configContent))
+                //this.configChanged();
                 console.log(`Using Configuration file ${name}.json as detected (${jsonConfigFile})`);
             } catch (e) {
                 console.warn(`Unable to load configuration file: ${e}`);
@@ -80,9 +74,10 @@ export default class FrostGenerator {
         }
     }
 
-    private configChanged(): void {
+    /* private configChanged(): void {
         this.options.srcDir = join(process.cwd(), this.options.srcDir || "");
         this.options.buildDir = join(process.cwd(), this.options.buildDir || "");
         this.options.staticDir = join(this.options.srcDir || "", this.options.staticDir || "");
     }
+    */
 }
