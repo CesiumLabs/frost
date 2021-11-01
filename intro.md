@@ -68,7 +68,7 @@ Here's an example usage:
 
 ### Templating with the frost engine
 
-Frost has it's own built-in **[templating engine](/frost/engine)**, using a html-like syntax with added features.
+Frost has it's own built-in **[templating engine](/engine)**, using a html-like syntax with added features.
 
 - Rendering Markdown
 Yes, with the frost engine you can render markdown with ease.
