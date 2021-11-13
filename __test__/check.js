@@ -1,4 +1,4 @@
-const engine = require("../build/src/engine");
+const engine = require("../build/engine");
 const assert = require("assert");
 const path = require("path");
 testStack("it should equal to html output", () => {
