@@ -14,7 +14,7 @@
 -   with npm (Preferred)
 
 ```bash
-npm i -g frostjs
+npm i -g frost-gen
 ```
 
 ### Usage

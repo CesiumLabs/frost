@@ -1,5 +1,5 @@
 {
-    "name": "frost",
+    "name": "frost-gen",
     "version": "0.0.1-b",
     "description": "🚀 A static site generator.",
     "main": "index.js",
