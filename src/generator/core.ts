@@ -5,8 +5,8 @@ import { WssStart, WssSend } from "../server";
 import { createHttpServer } from "../server";
 import path from "node:path";
 import fs from "node:fs";
-import { info } from "../logger";
 import deleteDir from "../utils/deleteDir";
+import * as logger from '../logger'
 import { copyIntoBuild } from "../builder/copyIntoBuild";
 import RecursiveReadDir from "../utils/recursiveReadDir";
 import { copyStatic } from "../builder/copyStatic";
@@ -54,9 +54,13 @@ export default class FrostGenerator {
 
         fs.mkdirSync(this.options.buildDir);
 
-        info("Building files...");
+        logger.info("Building files...");
         await copyIntoBuild(this.options, pages);
         await copyStatic(this.options);
+    }
+
+    version(): string {
+        return JSON.parse(fs.readFileSync(join(__dirname, "../../package.json"), "utf-8")).version;
     }
     loadConfigFile(): void {
         let name: string = "frost";
@@ -65,15 +69,14 @@ export default class FrostGenerator {
         if (existsSync(jsonConfigFile)) {
             try {
                 const configContent = readTextFileSync(jsonConfigFile);
-                this.options = Object.assign(this.options, JSON.parse(configContent))
+                this.options = Object.assign(this.options, JSON.parse(configContent));
                 //this.configChanged();
-                console.log(`Using Configuration file ${name}.json as detected (${jsonConfigFile})`);
+                logger.info(`Using Configuration file ${name}.json as detected (${jsonConfigFile})`);
             } catch (e) {
-                console.warn(`Unable to load configuration file: ${e}`);
+                logger.warn(`Unable to load configuration file: ${e}`);
             }
         }
     }
-
     /* private configChanged(): void {
         this.options.srcDir = join(process.cwd(), this.options.srcDir || "");
         this.options.buildDir = join(process.cwd(), this.options.buildDir || "");

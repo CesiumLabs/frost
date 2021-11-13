@@ -1,7 +1,11 @@
 #!/usr/bin/env node
 import pico from "picocolors";
+import * as logger from '../logger';
 import { FrostGenerator } from "../generator";
+import CreateNewProject from "../new";
+
 const f = new FrostGenerator();
+
 f.loadConfigFile();
 const args: string = process.argv[2];
 const options: string = process.argv[3];
@@ -42,6 +46,24 @@ if (args == "--help" || args == "-h") {
 }
 if (args == "--build" || args == "-b") {
     f.build();
-} else if (!args) {
+} 
+if (args == "--version" || args == "-v") {
+    logger.info(f.version());
+}
+if(args == '--init' || args == '-i'){
+    let dir = process.cwd();
+    let force = false;
+
+   if(process.argv.includes('--force')){
+         force = true;
+    }
+    if(process.argv.includes('--dir')){
+        dir = process.argv[process.argv.indexOf('--dir') + 1];
+    }
+    const newProject = new CreateNewProject({ dir, force });
+    
+    newProject.startCreation();
+}
+else if (!args) {
     console.log(HELP_RESPONSE);
 }

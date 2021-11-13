@@ -7,12 +7,12 @@ function warn(msg: string): void {
     console.log(`${pico.red("[WARN]")} ${pico.bold(msg)}`);
 }
 
-function debug(msg: string): void {
-    console.log(`${pico.cyan("[DEBUG]")} ${pico.bold(msg)}`);
-}
-
 function verbose(msg: string): void {
     console.log(`${pico.magenta("[DEBUG")} ${pico.bold(msg)}`);
 }
 
-export { info, warn, verbose };
+function error(msg: string | unknown): void {
+    console.error(`${pico.red("[ERROR]")}`, msg);
+}
+
+export { info, warn, verbose, error };

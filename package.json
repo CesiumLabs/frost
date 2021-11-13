@@ -1,6 +1,6 @@
 {
     "name": "frost",
-    "version": "1.0.0",
+    "version": "0.0.1-b",
     "description": "🚀 A static site generator.",
     "main": "index.js",
     "files": [
@@ -33,6 +33,7 @@
         "@types/html-minifier": "^4.0.1",
         "@types/marked": "^3.0.2",
         "@types/node": "^16.11.1",
+        "@types/shelljs": "^0.8.9",
         "@types/ws": "^8.2.0",
         "husky": "^7.0.0",
         "prettier": "^2.4.1",
@@ -45,6 +46,7 @@
         "html-minifier": "^4.0.0",
         "marked": "^3.0.7",
         "picocolors": "^1.0.0",
+        "shelljs": "^0.8.4",
         "terser": "^5.9.0",
         "ws": "^8.2.3"
     }
