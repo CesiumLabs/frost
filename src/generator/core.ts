@@ -6,7 +6,7 @@ import { createHttpServer } from "../server";
 import path from "node:path";
 import fs from "node:fs";
 import deleteDir from "../utils/deleteDir";
-import * as logger from '../logger'
+import * as logger from "../logger";
 import { copyIntoBuild } from "../builder/copyIntoBuild";
 import RecursiveReadDir from "../utils/recursiveReadDir";
 import { copyStatic } from "../builder/copyStatic";

@@ -6,6 +6,9 @@
     "files": [
         "build"
     ],
+    "bin": {  
+        "frost": "./build/cli/index.js"  
+      },
     "scripts": {
         "format": "prettier --write src/**/*.ts",
         "dev": "ts-node src/cli/index.ts --serve --port 3000",
