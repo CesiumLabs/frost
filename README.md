@@ -52,7 +52,7 @@ To overwrite the custom configuration file, you can use `--config {file}.json` a
 `buildDir` - Specifies the export directory on build.
 `staticDir` - Directory where the static files are stored.
 `HTMLcompressionLevel` - The amount of compression you want the build to incurr
-
+`metadataFile` -   The file wher the metadata is stored.
 
 ### Metadata
 
