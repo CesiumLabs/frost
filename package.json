@@ -6,15 +6,21 @@
     "files": [
         "build"
     ],
-    "bin": {  
-        "frost": "./build/cli/index.js"  
-      },
+    "bin": {
+        "frost": "./build/cli/index.js"
+    },
     "scripts": {
         "format": "prettier --write src/**/*.ts",
         "dev": "ts-node src/cli/index.ts --serve --port 3000",
         "build": "rimraf build && tsc",
         "test": "node __test__/test.js ./check.js",
-        "prepare": "husky install"
+        "prepare": "husky install",
+        "package:mac": "pkg . --targets node16-macos-x64 --output frost",
+        "package:windows":"pkg . --targets node16-windows-x64 --output frost",
+        "package:linux":"pkg . --target node16-linux-arm64 --output frost"
+    },
+    "pkg": {
+        "scripts": "build/**/*.js"
     },
     "repository": {
         "type": "git",
@@ -39,6 +45,7 @@
         "@types/shelljs": "^0.8.9",
         "@types/ws": "^8.2.0",
         "husky": "^7.0.0",
+        "pkg": "^5.4.1",
         "prettier": "^2.4.1",
         "rimraf": "^3.0.2",
         "ts-node": "^10.4.0",

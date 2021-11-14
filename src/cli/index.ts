@@ -33,6 +33,7 @@ ${pico.bold("Commands")}
 ${pico.cyan("serve")} --serve -s :: Start your website on a local dev server.
 ${pico.cyan("help")}  --help  -h :: Opens up this help menu.
 ${pico.cyan("build")} --build -b :: Build Your Application.
+${pico.cyan("init")}  --init  -i :: Initialize a new application.
 `;
 if (args == "--serve" || args == "-s") {
     if (options == "--port") {
