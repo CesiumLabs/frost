@@ -7,17 +7,13 @@ import * as logger from "../logger";
 import pico from "picocolors";
 import { stripIndents } from "common-tags";
 
-export async function serverCreate (
-    port: number, 
-    pages: string[], 
-    options: GeneratorOptions
-): Promise<http.Server> {
-    return http.createServer(
-        async (request: http.IncomingMessage, response: http.ServerResponse) => {
+export async function serverCreate(port: number, pages: string[], options: GeneratorOptions): Promise<http.Server> {
+    return http
+        .createServer(async (request: http.IncomingMessage, response: http.ServerResponse) => {
             response.writeHead(200, { "Content-Type": "text/html" });
             let url = request.url;
             let data = await getData(options);
-    
+
             for (const page of pages) {
                 if (path.basename(path.dirname(page)) == options.srcDir) {
                     let base = path.basename(page, ".frost");
@@ -54,7 +50,7 @@ export async function serverCreate (
                         logger.info(`/${base} - successfully built ${pico.green("✔︎")}`);
                         response.end();
                     }
-    
+
                     if (url == `/${base}/${re}`) {
                         let rendered = renderHTML(path.join(process.cwd(), page), data);
                         rendered += `<script>var ssgs=new WebSocket("ws://localhost:${port}");ssgs.onmessage=function(event){if(event.data==="reload"){window.location.reload()}}</script>`;
@@ -64,9 +60,9 @@ export async function serverCreate (
                     }
                 }
             }
-        }
-    ).listen(port, "localhost", () => logger.info(`${pico.green("✔︎")} Server started on http://localhost:${port}`));
-};
+        })
+        .listen(port, "localhost", () => logger.info(`${pico.green("✔︎")} Server started on http://localhost:${port}`));
+}
 
 function renderHTML(page: string, data: any = {}) {
     try {
@@ -74,7 +70,7 @@ function renderHTML(page: string, data: any = {}) {
     } catch (err) {
         const error = err as Error;
         console.error(error);
-        
+
         return stripIndents`
         <!DOCTYPE html>
         <html lang="en">
