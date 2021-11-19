@@ -1,6 +1,6 @@
 import { minify } from "html-minifier";
 
-export default (text: string, compressionLevel: number): string =>
+export default (text: string, compressionLevel: number) =>
     minify(text, {
         html5: true,
         collapseInlineTagWhitespace: compressionLevel >= 3,

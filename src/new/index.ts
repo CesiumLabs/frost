@@ -9,7 +9,6 @@ export interface Argument {
 }
 
 export default class CreateNewProject {
-
     public args: Argument;
     public path: string;
     public force: boolean;
@@ -36,5 +35,4 @@ export default class CreateNewProject {
             logger.error(error);
         }
     }
-
 }
