@@ -3,7 +3,7 @@ export default function extend(_a: object, _b: object, remove?: boolean) {
     let a_traversed: any[] = [];
     let b_traversed: any[] = [];
 
-    function _extend (a: any, b: any) {
+    function _extend(a: any, b: any) {
         if (a_traversed.indexOf(a) == -1 && b_traversed.indexOf(b) == -1) {
             a_traversed.push(a);
             b_traversed.push(b);
@@ -19,7 +19,7 @@ export default function extend(_a: object, _b: object, remove?: boolean) {
                         if (!b.hasOwnProperty(x)) delete a[x];
                     }
             } else return b;
-            
+
             return a;
         }
     }
