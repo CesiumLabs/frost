@@ -35,7 +35,7 @@ ${pico.cyan("build")} --build -b :: Build Your Application.
 ${pico.cyan("init")}  --init  -i :: Initialize a new application.
 `;
 
-if (args == "--serve" || args == "-s") frost.serve((options == "--port" && optionsArg) ? Number(optionsArg) : 5348);
+if (args == "--serve" || args == "-s") frost.serve(options == "--port" && optionsArg ? Number(optionsArg) : 5348);
 else if (args == "--help" || args == "-h") console.log(HELP_RESPONSE);
 else if (args == "--build" || args == "-b") frost.build();
 else if (args == "--version" || args == "-v") logger.info(frost.version());

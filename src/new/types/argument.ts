@@ -1,5 +1,4 @@
-
 export default interface Argument {
-  dir?: string;
-  force: boolean;
+    dir?: string;
+    force: boolean;
 }
