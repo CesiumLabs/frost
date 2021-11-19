@@ -10,9 +10,12 @@ import * as logger from "../logger";
 import { copyIntoBuild } from "../builder/copyIntoBuild";
 import RecursiveReadDir from "../utils/recursiveReadDir";
 import { copyStatic } from "../builder/copyStatic";
+
 const readTextFileSync = (file: string) => readFileSync(file, "utf-8");
+
 export default class FrostGenerator {
-    options: GeneratorOptions = {
+
+    public options: GeneratorOptions = {
         srcDir: "source",
         buildDir: "build",
         staticDir: "static",
@@ -21,37 +24,28 @@ export default class FrostGenerator {
     };
 
     constructor(opts?: GeneratorOptions) {
-        if (opts) {
-            this.options = { ...this.options, ...opts };
-        }
+        if (opts) this.options = { ...this.options, ...opts };
     }
 
-    async serve(port: number): Promise<void> {
-        const onChange = () => {
-            WssSend("reload");
-        };
-        fsWatch(this.options.srcDir, onChange);
-        let pages = new Array<string>();
-        RecursiveReadDir(this.options.srcDir, (p: string) => {
-            if (path.extname(p) == ".frost") {
-                pages.push(p);
-            }
+    async serve(port: number) {
+        fsWatch(this.options.srcDir, () => WssSend("reload"));
+
+        let pages: string[] = [];
+        RecursiveReadDir(this.options.srcDir, p => {
+            if (path.extname(p) == ".frost") pages.push(p);
         });
+
         const server = await createHttpServer(port, pages, this.options);
         WssStart(server);
     }
 
-    async build(): Promise<void> {
-        let pages = new Array<string>();
-        RecursiveReadDir(this.options.srcDir, (p: string) => {
-            if (path.extname(p) == ".frost") {
-                pages.push(p);
-            }
+    async build() {
+        let pages: string[] = [];
+        RecursiveReadDir(this.options.srcDir, p => {
+            if (path.extname(p) == ".frost") pages.push(p);
         });
-        if (fs.existsSync(this.options.buildDir)) {
-            deleteDir(this.options.buildDir);
-        }
 
+        if (fs.existsSync(this.options.buildDir)) deleteDir(this.options.buildDir);
         fs.mkdirSync(this.options.buildDir);
 
         logger.info("Building files...");
@@ -62,6 +56,7 @@ export default class FrostGenerator {
     version(): string {
         return JSON.parse(fs.readFileSync(join(__dirname, "../../package.json"), "utf-8")).version;
     }
+
     loadConfigFile(): this {
         let name: string = "frost";
         let jsonConfigFile = join(process.cwd(), `${name}.json`);
@@ -70,7 +65,7 @@ export default class FrostGenerator {
             try {
                 const configContent = readTextFileSync(jsonConfigFile);
                 this.options = Object.assign(this.options, JSON.parse(configContent));
-                //this.configChanged();
+                // this.configChanged();
                 logger.info(`Using Configuration file ${name}.json as detected (${jsonConfigFile})`);
             } catch (e) {
                 logger.warn(`Unable to load configuration file: ${e}`);
@@ -79,10 +74,13 @@ export default class FrostGenerator {
 
         return this;
     }
-    /* private configChanged(): void {
+
+    /* 
+    private configChanged(): void {
         this.options.srcDir = join(process.cwd(), this.options.srcDir || "");
         this.options.buildDir = join(process.cwd(), this.options.buildDir || "");
         this.options.staticDir = join(this.options.srcDir || "", this.options.staticDir || "");
     }
     */
+
 }
