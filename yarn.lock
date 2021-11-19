@@ -114,10 +114,10 @@
   "resolved" "https://registry.npmjs.org/@types/minimatch/-/minimatch-3.0.5.tgz"
   "version" "3.0.5"
 
-"@types/node@*", "@types/node@^16.11.1":
-  "integrity" "sha512-PYGcJHL9mwl1Ek3PLiYgyEKtwTMmkMw4vbiyz/ps3pfdRYLVv+SN7qHVAImrjdAXxgluDEw6Ph4lyv+m9UpRmA=="
-  "resolved" "https://registry.npmjs.org/@types/node/-/node-16.11.1.tgz"
-  "version" "16.11.1"
+"@types/node@*", "@types/node@^16.11.9":
+  "integrity" "sha512-MKmdASMf3LtPzwLyRrFjtFFZ48cMf8jmX5VRYrDQiJa8Ybu5VAmkqBWqKU8fdCwD8ysw4mQ9nrEHvzg6gunR7A=="
+  "resolved" "https://registry.npmjs.org/@types/node/-/node-16.11.9.tgz"
+  "version" "16.11.9"
 
 "@types/relateurl@*":
   "integrity" "sha512-QSvevZ+IRww2ldtfv1QskYsqVVVwCKQf1XbwtcyyoRvLIQzfyPhj/C+3+PKzSDRdiyejaiLgnq//XTkleorpLg=="

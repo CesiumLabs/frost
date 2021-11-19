@@ -62,7 +62,7 @@ export default class FrostGenerator {
     version(): string {
         return JSON.parse(fs.readFileSync(join(__dirname, "../../package.json"), "utf-8")).version;
     }
-    loadConfigFile(): void {
+    loadConfigFile(): this {
         let name: string = "frost";
         let jsonConfigFile = join(process.cwd(), `${name}.json`);
 
@@ -76,6 +76,8 @@ export default class FrostGenerator {
                 logger.warn(`Unable to load configuration file: ${e}`);
             }
         }
+
+        return this;
     }
     /* private configChanged(): void {
         this.options.srcDir = join(process.cwd(), this.options.srcDir || "");

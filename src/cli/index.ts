@@ -4,13 +4,12 @@ import * as logger from "../logger";
 import { FrostGenerator } from "../generator";
 import CreateNewProject from "../new";
 
-const f = new FrostGenerator();
+const frost = new FrostGenerator().loadConfigFile();
 
-f.loadConfigFile();
 const args: string = process.argv[2];
 const options: string = process.argv[3];
 const optionsArg = process.argv[4];
-let HELP_RESPONSE = `
+const HELP_RESPONSE = `
 
 ${pico.cyan(pico.bold("HELP MENU"))}
 
@@ -35,35 +34,14 @@ ${pico.cyan("help")}  --help  -h :: Opens up this help menu.
 ${pico.cyan("build")} --build -b :: Build Your Application.
 ${pico.cyan("init")}  --init  -i :: Initialize a new application.
 `;
-if (args == "--serve" || args == "-s") {
-    if (options == "--port") {
-        if (optionsArg) f.serve(Number(optionsArg));
-        else if (!optionsArg) f.serve(5348);
-    } else if (!options) f.serve(5348);
-}
 
-if (args == "--help" || args == "-h") {
-    console.log(HELP_RESPONSE);
-}
-if (args == "--build" || args == "-b") {
-    f.build();
-}
-if (args == "--version" || args == "-v") {
-    logger.info(f.version());
-}
-if (args == "--init" || args == "-i") {
+if (args == "--serve" || args == "-s") frost.serve((options == "--port" && optionsArg) ? Number(optionsArg) : 5348);
+else if (args == "--help" || args == "-h") console.log(HELP_RESPONSE);
+else if (args == "--build" || args == "-b") frost.build();
+else if (args == "--version" || args == "-v") logger.info(frost.version());
+else if (args == "--init" || args == "-i") {
     let dir = process.cwd();
-    let force = false;
-
-    if (process.argv.includes("--force")) {
-        force = true;
-    }
-    if (process.argv.includes("--dir")) {
-        dir = process.argv[process.argv.indexOf("--dir") + 1];
-    }
-    const newProject = new CreateNewProject({ dir, force });
-
-    newProject.startCreation();
-} else if (!args) {
-    console.log(HELP_RESPONSE);
-}
+    let force = !!process.argv.includes("--force");
+    if (process.argv.includes("--dir")) dir = process.argv[process.argv.indexOf("--dir") + 1];
+    new CreateNewProject({ dir, force }).startCreation();
+} else console.log(HELP_RESPONSE);
