@@ -14,7 +14,6 @@ import { copyStatic } from "../builder/copyStatic";
 const readTextFileSync = (file: string) => readFileSync(file, "utf-8");
 
 export default class FrostGenerator {
-
     public options: GeneratorOptions = {
         srcDir: "source",
         buildDir: "build",
@@ -31,7 +30,7 @@ export default class FrostGenerator {
         fsWatch(this.options.srcDir, () => WssSend("reload"));
 
         let pages: string[] = [];
-        RecursiveReadDir(this.options.srcDir, p => {
+        RecursiveReadDir(this.options.srcDir, (p) => {
             if (path.extname(p) == ".frost") pages.push(p);
         });
 
@@ -41,7 +40,7 @@ export default class FrostGenerator {
 
     async build() {
         let pages: string[] = [];
-        RecursiveReadDir(this.options.srcDir, p => {
+        RecursiveReadDir(this.options.srcDir, (p) => {
             if (path.extname(p) == ".frost") pages.push(p);
         });
 
@@ -82,5 +81,4 @@ export default class FrostGenerator {
         this.options.staticDir = join(this.options.srcDir || "", this.options.staticDir || "");
     }
     */
-
 }

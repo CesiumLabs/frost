@@ -1,9 +1,8 @@
 export class FrostError extends Error {
-    constructor(message: string, name?: string) {
-        super();
-        this.message = message;
-        this.name = name || "FrostError";
 
+    constructor(public message: string, public name = "FrostError") {
+        super();
         Error.captureStackTrace(this);
     }
+
 }
