@@ -6,64 +6,66 @@ import * as frost from "../engine/index";
 import * as logger from "../logger";
 import pico from "picocolors";
 import { stripIndents } from "common-tags";
-const serverCreate = async (port: number, pages: Array<string>, options: GeneratorOptions): Promise<http.Server> => {
-    const server = http.createServer(async (request: http.IncomingMessage, response: http.ServerResponse) => {
-        response.writeHead(200, { "Content-Type": "text/html" });
-        let url = request.url;
-        let data = await getData(options);
 
-        for (const page of pages) {
-            if (path.basename(path.dirname(page)) == options.srcDir) {
-                let base = path.basename(page, ".frost");
-                if (url == `/`) {
-                    if (base != "index") return;
-                    let rendered = renderHTML(path.join(process.cwd(), page), data);
-                    rendered += `<script>var ssgs=new WebSocket("ws://localhost:${port}");ssgs.onmessage=function(event){if(event.data==="reload"){window.location.reload()}}</script>`;
-                    response.write(rendered);
-                    logger.info(`/ - successfully built ${pico.green("✔︎")}`);
-                    response.end();
-                } else if (url == `/${base}`) {
-                    let rendered = renderHTML(path.join(process.cwd(), page), data);
-                    rendered += `<script>var ssgs=new WebSocket("ws://localhost:${port}");ssgs.onmessage=function(event){if(event.data==="reload"){window.location.reload()}}</script>`;
-                    response.write(rendered);
-                    logger.info(`/${base} - successfully built ${pico.green("✔︎")}`);
-                    response.end();
-                }
-            } else {
-                const baseDex = page.split("/");
-                const reduced = baseDex.filter((_, idx) => idx > 0);
-                const r = reduced.join("/");
-                const root = r.split("/")[r.split("/").length - 1];
-                const base = r
-                    .split("/")
-                    .filter((_, posx) => posx < r.split("/").length - 1)
-                    .join("/");
-                const re = path.basename(root, ".frost");
-                if (url == `/${base}/`) {
-                    if (path.basename(root, ".frost") != "index") return;
-                    let rendered = renderHTML(path.join(process.cwd(), page), data);
-                    rendered += `<script>var ssgs=new WebSocket("ws://localhost:${port}");ssgs.onmessage=function(event){if(event.data==="reload"){window.location.reload()}}</script>`;
-                    response.write(rendered);
-                    logger.info(`/${base} - successfully built ${pico.green("✔︎")}`);
-                    response.end();
-                }
+export async function serverCreate (
+    port: number, 
+    pages: string[], 
+    options: GeneratorOptions
+): Promise<http.Server> {
+    return http.createServer(
+        async (request: http.IncomingMessage, response: http.ServerResponse) => {
+            response.writeHead(200, { "Content-Type": "text/html" });
+            let url = request.url;
+            let data = await getData(options);
+    
+            for (const page of pages) {
+                if (path.basename(path.dirname(page)) == options.srcDir) {
+                    let base = path.basename(page, ".frost");
+                    if (url == `/`) {
+                        if (base != "index") return;
+                        let rendered = renderHTML(path.join(process.cwd(), page), data);
+                        rendered += `<script>var ssgs=new WebSocket("ws://localhost:${port}");ssgs.onmessage=function(event){if(event.data==="reload"){window.location.reload()}}</script>`;
+                        response.write(rendered);
+                        logger.info(`/ - successfully built ${pico.green("✔︎")}`);
+                        response.end();
+                    } else if (url == `/${base}`) {
+                        let rendered = renderHTML(path.join(process.cwd(), page), data);
+                        rendered += `<script>var ssgs=new WebSocket("ws://localhost:${port}");ssgs.onmessage=function(event){if(event.data==="reload"){window.location.reload()}}</script>`;
+                        response.write(rendered);
+                        logger.info(`/${base} - successfully built ${pico.green("✔︎")}`);
+                        response.end();
+                    }
+                } else {
+                    const baseDex = page.split("/");
+                    const reduced = baseDex.filter((_, idx) => idx > 0);
+                    const r = reduced.join("/");
+                    const root = r.split("/")[r.split("/").length - 1];
+                    const re = path.basename(root, ".frost");
+                    const base = r
+                        .split("/")
+                        .filter((_, posx) => posx < r.split("/").length - 1)
+                        .join("/");
 
-                if (url == `/${base}/${re}`) {
-                    let rendered = renderHTML(path.join(process.cwd(), page), data);
-                    rendered += `<script>var ssgs=new WebSocket("ws://localhost:${port}");ssgs.onmessage=function(event){if(event.data==="reload"){window.location.reload()}}</script>`;
-                    response.write(rendered);
-                    logger.info(`/${base}/${re} - successfully built ${pico.green("✔︎")}`);
-                    response.end();
+                    if (url == `/${base}/`) {
+                        if (path.basename(root, ".frost") != "index") return;
+                        let rendered = renderHTML(path.join(process.cwd(), page), data);
+                        rendered += `<script>var ssgs=new WebSocket("ws://localhost:${port}");ssgs.onmessage=function(event){if(event.data==="reload"){window.location.reload()}}</script>`;
+                        response.write(rendered);
+                        logger.info(`/${base} - successfully built ${pico.green("✔︎")}`);
+                        response.end();
+                    }
+    
+                    if (url == `/${base}/${re}`) {
+                        let rendered = renderHTML(path.join(process.cwd(), page), data);
+                        rendered += `<script>var ssgs=new WebSocket("ws://localhost:${port}");ssgs.onmessage=function(event){if(event.data==="reload"){window.location.reload()}}</script>`;
+                        response.write(rendered);
+                        logger.info(`/${base}/${re} - successfully built ${pico.green("✔︎")}`);
+                        response.end();
+                    }
                 }
             }
         }
-    });
-
-    server.listen(port, "localhost", () => {
-        logger.info(`${pico.green("✔︎")} Server started on http://localhost:${port}`);
-    });
-
-    return server;
+    ).listen(port, "localhost", () => logger.info(`${pico.green("✔︎")} Server started on http://localhost:${port}`));
 };
 
 function renderHTML(page: string, data: any = {}) {
@@ -72,6 +74,7 @@ function renderHTML(page: string, data: any = {}) {
     } catch (err) {
         const error = err as Error;
         console.error(error);
+        
         return stripIndents`
         <!DOCTYPE html>
         <html lang="en">
@@ -128,5 +131,3 @@ function renderHTML(page: string, data: any = {}) {
         `;
     }
 }
-
-export { serverCreate as createHttpServer };
