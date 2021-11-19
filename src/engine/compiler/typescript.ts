@@ -28,7 +28,7 @@ const createTSError = (diagnostics?: ts.Diagnostic[]) => {
 export function compile(source: string, options?: ts.CompilerOptions): string {
     try {
         options = Object.assign({}, defaultOptions, options || {});
-        
+
         // const createdFiles: Record<string, string> = {};
         // const fileName = `${generate(7)}.ts`;
         // const sourceFile = ts.createSourceFile(fileName, source, options.target ?? ts.ScriptTarget.ES2015, true);

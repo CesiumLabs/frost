@@ -17,12 +17,7 @@ export function compile<T = unknown>(source: string, options?: T) {
         const dat = stripIndents`let ${frostVar}=${JSON.stringify(options || {})}
         ,locals=Object.assign({},${frostVar}),
         {${Object.keys(options || {}).join(",")}}=${frostVar},
-        ${outputVar}=${
-            JSON.stringify(source)
-                .replace(FROST_COMMENT, "")
-                .replace(FROST_JS_RENDER, '"+($1)+"')
-                .replace(FROST_JS_EMBED, `";$1\n${outputVar}+="`)
-        };
+        ${outputVar}=${JSON.stringify(source).replace(FROST_COMMENT, "").replace(FROST_JS_RENDER, '"+($1)+"').replace(FROST_JS_EMBED, `";$1\n${outputVar}+="`)};
         return ${outputVar};`;
 
         return new Function(dat)() as string;

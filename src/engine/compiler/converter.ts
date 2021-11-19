@@ -89,8 +89,7 @@ export function converter<T>(source: string, data?: T, ext?: string) {
         return inject(ext === "md" ? clean(marked(stripIndents(source))) : source, data || {});
     } catch (err) {
         const error = err as Error;
-        if (error.name === "RangeError" && error.message === "Maximum call stack size exceeded")
-            throw new RangeError(`Too much recursion detected! Possible cause: circular imports/includes`);
+        if (error.name === "RangeError" && error.message === "Maximum call stack size exceeded") throw new RangeError(`Too much recursion detected! Possible cause: circular imports/includes`);
 
         console.error(error);
         return "";
