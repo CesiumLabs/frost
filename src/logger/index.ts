@@ -1,17 +1,18 @@
 import pico from "picocolors";
-function info(msg: string): void {
+
+function info(msg: string) {
     console.log(`${pico.magenta("[INFO]")} ${pico.bold(msg)}`);
 }
 
-function warn(msg: string): void {
+function warn(msg: string) {
     console.log(`${pico.red("[WARN]")} ${pico.bold(msg)}`);
 }
 
-function verbose(msg: string): void {
+function verbose(msg: string) {
     console.log(`${pico.magenta("[DEBUG")} ${pico.bold(msg)}`);
 }
 
-function error(msg: string | unknown): void {
+function error(msg: string | unknown) {
     console.error(`${pico.red("[ERROR]")}`, msg);
 }
 

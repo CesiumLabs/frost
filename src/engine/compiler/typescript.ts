@@ -1,6 +1,6 @@
 import * as ts from "typescript";
-import { FrostError } from "../utils/FrostError";
-import { generate } from "../../utils/genName";
+import { FrostError } from "../utils/error";
+// import { generate } from "../../utils/genName";
 
 const defaultOptions: ts.CompilerOptions = {
     esModuleInterop: true,
@@ -28,6 +28,7 @@ const createTSError = (diagnostics?: ts.Diagnostic[]) => {
 export function compile(source: string, options?: ts.CompilerOptions): string {
     try {
         options = Object.assign({}, defaultOptions, options || {});
+
         // const createdFiles: Record<string, string> = {};
         // const fileName = `${generate(7)}.ts`;
         // const sourceFile = ts.createSourceFile(fileName, source, options.target ?? ts.ScriptTarget.ES2015, true);
@@ -42,13 +43,9 @@ export function compile(source: string, options?: ts.CompilerOptions): string {
 
         // return createdFiles[fileName] || "";
 
-        const emitted = ts.transpileModule(source, {
-            compilerOptions: options
-        });
-
+        const emitted = ts.transpileModule(source, { compilerOptions: options });
         const error = createTSError(emitted.diagnostics);
         if (error) throw error;
-
         return emitted.outputText;
     } catch (e) {
         throw new FrostError(`TypeScript compilation error:\n${(e as Error).message}`, "TypeScriptError");
