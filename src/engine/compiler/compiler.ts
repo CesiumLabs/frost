@@ -1,4 +1,4 @@
-import { FrostError } from "../utils/FrostError";
+import { FrostError } from "../utils/error";
 import { generate as randomNameGen } from "../../utils/genName";
 import { FrostTag } from "../utils/constants";
 import { stripIndents } from "common-tags";

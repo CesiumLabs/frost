@@ -1,7 +1,7 @@
 import { readFileSync, existsSync } from "node:fs";
 import { compile } from "../compiler/compiler";
 import { converter } from "../compiler/converter";
-import { FrostError } from "./FrostError";
+import { FrostError } from "./error";
 import path from "node:path";
 
 export function renderFile<T = unknown>(filePath: string, data?: T) {

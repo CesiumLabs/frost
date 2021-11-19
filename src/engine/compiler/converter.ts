@@ -1,7 +1,7 @@
 import marked from "marked";
 import fs from "node:fs";
 import path from "path";
-import { FrostError } from "../utils/FrostError";
+import { FrostError } from "../utils/error";
 import { FrostTag } from "../utils/constants";
 import { compile as TypeScript } from "./typescript";
 import { stripIndents } from "common-tags";

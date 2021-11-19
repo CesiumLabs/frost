@@ -1,5 +1,5 @@
 import * as ts from "typescript";
-import { FrostError } from "../utils/FrostError";
+import { FrostError } from "../utils/error";
 // import { generate } from "../../utils/genName";
 
 const defaultOptions: ts.CompilerOptions = {
