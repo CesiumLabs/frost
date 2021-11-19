@@ -31,7 +31,6 @@ export async function copyIntoBuild(options: GeneratorOptions, pages: Array<stri
                 .filter((_, posx) => posx < r.split("/").length - 1)
                 .join("/");
 
-            
             info(`/${baseName} - Minifying code...`);
             const minified = await htmlMinifier(rendered, options.HTMLcompressionLevel);
 
