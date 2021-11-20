@@ -2,7 +2,7 @@
     "name": "frost-gen",
     "version": "0.0.1-b",
     "description": "🚀 A static site generator.",
-    "main": "index.js",
+    "main": "build/cli/index.js",
     "files": [
         "build"
     ],
@@ -15,12 +15,7 @@
         "build": "rimraf build && tsc",
         "test": "node __test__/test.js ./check.js",
         "prepare": "husky install",
-        "package:mac": "pkg . --targets node16-macos-x64 --output frost",
-        "package:windows": "pkg . --targets node16-windows-x64 --output frost",
-        "package:linux": "pkg . --target node16-linux-arm64 --output frost"
-    },
-    "pkg": {
-        "scripts": "build/**/*.js"
+        "package": "pkg ."
     },
     "repository": {
         "type": "git",
@@ -48,8 +43,7 @@
         "pkg": "^5.4.1",
         "prettier": "^2.4.1",
         "rimraf": "^3.0.2",
-        "ts-node": "^10.4.0",
-        "typescript": "^4.4.4"
+        "ts-node": "^10.4.0"
     },
     "dependencies": {
         "common-tags": "^1.8.0",
@@ -58,6 +52,7 @@
         "picocolors": "^1.0.0",
         "shelljs": "^0.8.4",
         "terser": "^5.9.0",
+        "typescript": "^4.5.2",
         "ws": "^8.2.3"
     }
 }
