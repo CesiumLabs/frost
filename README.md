@@ -138,3 +138,6 @@ With frost's engine, using typescript is a piece of cake.
        #include "./hello.ts"
    </p>
    ```
+   # Extensions
+   
+   - [Frost-vsc](https://marketplace.visualstudio.com/items?itemName=scientific-dev.frost-vsc)  -  A Visual studio code extention for frost.
