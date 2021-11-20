@@ -1,5 +1,5 @@
 import WebSocket from "ws";
-import type { Server } from "node:http";
+import type { Server } from "http";
 
 let wss: WebSocket.Server;
 

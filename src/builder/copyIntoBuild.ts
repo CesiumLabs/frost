@@ -1,6 +1,6 @@
 import { GeneratorOptions } from "../generator";
-import fs from "node:fs";
-import path from "node:path";
+import fs from "fs";
+import path from "path";
 import { renderFile } from "../engine";
 import { info } from "../logger";
 import pico from "picocolors";

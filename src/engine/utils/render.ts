@@ -1,8 +1,8 @@
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync } from "fs";
 import { compile } from "../compiler/compiler";
 import { converter } from "../compiler/converter";
 import { FrostError } from "./error";
-import path from "node:path";
+import path from "path";
 
 export function renderFile<T = unknown>(filePath: string, data?: T) {
     if (!filePath || !existsSync(filePath)) throw new FrostError("Could not locate source file");

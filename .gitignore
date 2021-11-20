@@ -4,3 +4,6 @@ build
 source
 test/
 yarn.lock
+frost-gen-linux
+frost-gen-macos
+frost-gen-win.exe

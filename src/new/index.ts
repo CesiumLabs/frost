@@ -1,5 +1,5 @@
 import * as logger from "../logger";
-import fs from "node:fs";
+import fs from "fs";
 import pico from "picocolors";
 import shell from "shelljs";
 

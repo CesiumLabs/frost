@@ -1,5 +1,5 @@
 import marked from "marked";
-import fs from "node:fs";
+import fs from "fs";
 import path from "path";
 import { FrostError } from "../utils/error";
 import { FrostTag } from "../utils/constants";

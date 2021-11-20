@@ -1,4 +1,4 @@
-import _fs from "node:fs";
+import _fs from "fs";
 import recurseDirectory from "./recursiveReadDir";
 
 export default function deleteDir(dir: string) {

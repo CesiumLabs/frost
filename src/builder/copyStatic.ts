@@ -1,5 +1,5 @@
 import { GeneratorOptions } from "../generator";
-import fs from "node:fs";
+import fs from "fs";
 import { info } from "../logger";
 import copyDirectory from "../utils/copyDir";
 import pico from "picocolors";

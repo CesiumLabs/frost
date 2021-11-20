@@ -1,5 +1,5 @@
-import fs from "node:fs";
-import path from "node:path";
+import fs from "fs";
+import path from "path";
 import recurseDirectory from "./recursiveReadDir";
 
 export default function copyDir(source: string, target: string) {

@@ -1,6 +1,6 @@
-import http from "node:http";
+import http from "http";
 import { GeneratorOptions } from "../generator";
-import path from "node:path";
+import path from "path";
 import getData from "../utils/getData";
 import * as frost from "../engine/index";
 import * as logger from "../logger";

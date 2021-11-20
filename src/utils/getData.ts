@@ -1,7 +1,7 @@
 import { GeneratorOptions } from "../generator";
 import recursiveReadDir from "./recursiveReadDir";
-import fs from "node:fs";
-import path from "node:path";
+import fs from "fs";
+import path from "path";
 
 export default async function getData(options: GeneratorOptions) {
     let data = {};
