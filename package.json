@@ -1,6 +1,6 @@
 {
     "name": "frost-gen",
-    "version": "0.0.1-b",
+    "version": "0.1.0-b",
     "description": "🚀 A static site generator.",
     "main": "build/cli/index.js",
     "files": [
