@@ -1,4 +1,7 @@
-## ![frost](https://cdn.discordapp.com/attachments/804373281075363840/901126619471691866/FROST.png)
+<p align="center">
+   <img src="https://cdn.discordapp.com/attachments/911964535060070453/939549219411341362/Frost.png">
+    </img>
+    </p>
 
 ## 🚀 A static site generator.
 
