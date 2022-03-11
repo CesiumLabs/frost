@@ -2,6 +2,7 @@ import * as logger from "../logger";
 import fs from "fs";
 import pico from "picocolors";
 import shell from "shelljs";
+import clone from "github-clone-repo";
 
 export interface Argument {
     dir?: string;
@@ -19,18 +20,22 @@ export default class CreateNewProject {
         this.force = !!args.force;
     }
 
-    startCreation(): void {
+    async startCreation(): Promise<void> {
         console.log(pico.green("Starting initialization..."));
-        let commands = [`git clone https://github.com/rhygg/frost-starter-template ${this.path}`];
-
         try {
             if (this.force && fs.readdirSync(this.path).length !== 0) {
                 console.log(pico.yellow("--force"), pico.red("usage detected, deleting existing directory"));
-                commands.push(`rm -rf ${this.path}`);
+                shell.exec(`rm -rf ${this.path}`);
             }
 
-            commands.forEach(shell.exec);
-            console.log(pico.green("Initialization successful!"));
+            const success = await clone({
+                owner: "cesiumlabs",
+                repository: "frost-template",
+                branch: "main",
+                outPath: "./output"
+            });
+
+            console.log(success ? pico.green("Successfully cloned template") : pico.red("Failed to clone template"));
         } catch (error) {
             logger.error(error);
         }

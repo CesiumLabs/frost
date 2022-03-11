@@ -3,6 +3,7 @@
     "version": "0.1.0-b",
     "description": "🚀 A static site generator.",
     "main": "build/cli/index.js",
+    "type": "module",
     "files": [
         "build"
     ],
@@ -13,13 +14,15 @@
         "format": "prettier --write src/**/*.ts",
         "dev": "ts-node src/cli/index.ts --serve --port 3000",
         "build": "rimraf build && tsc",
-        "test": "node __test__/test.js ./check.js",
+        "test": "node --experimental-specifier-resolution=node __test__/test.js ./check.js",
         "prepare": "husky install",
-        "package": "pkg ."
+        "package": "pkg .",
+        "docs:serve":"codedoc serve",
+        "docs:build":"codedoc build"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/DevSnowflake/frost.git"
+        "url": "git+https://github.com/cesiumlabs/frost.git"
     },
     "keywords": [
         "static",
@@ -29,30 +32,39 @@
     "author": "Rhydderchc",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/DevSnowflake/frost/issues"
+        "url": "https://github.com/cesiumlabs/frost/issues"
     },
-    "homepage": "https://github.com/DevSnowflake/frost#readme",
+    "homepage": "https://github.com/cesiumlabs/frost#readme",
     "devDependencies": {
         "@types/common-tags": "^1.8.1",
         "@types/html-minifier": "^4.0.1",
         "@types/marked": "^3.0.2",
+        "@types/minimist": "^1.2.2",
         "@types/node": "^16.11.9",
         "@types/shelljs": "^0.8.9",
         "@types/ws": "^8.2.0",
+        "@typescript-eslint/eslint-plugin": "^4.33.0",
+        "eslint": "^7.32.0",
+        "eslint-config-standard-with-typescript": "^21.0.1",
+        "eslint-plugin-import": "^2.25.4",
+        "eslint-plugin-node": "^11.1.0",
+        "eslint-plugin-promise": "^5.2.0",
         "husky": "^7.0.0",
         "pkg": "^5.4.1",
         "prettier": "^2.4.1",
         "rimraf": "^3.0.2",
-        "ts-node": "^10.4.0"
+        "ts-node": "^10.4.0",
+        "typescript": "^4.6.2"
     },
     "dependencies": {
         "common-tags": "^1.8.0",
+        "github-clone-repo": "^1.0.1",
         "html-minifier": "^4.0.0",
         "marked": "^3.0.7",
+        "minimist": "^1.2.5",
         "picocolors": "^1.0.0",
         "shelljs": "^0.8.4",
         "terser": "^5.9.0",
-        "typescript": "^4.5.2",
         "ws": "^8.2.3"
     }
 }

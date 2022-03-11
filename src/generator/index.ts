@@ -33,7 +33,7 @@ export class FrostGenerator {
         if (opts) this.options = { ...this.options, ...opts };
     }
 
-    async serve(port: number) {
+    async serve(port: number, configFile: string) {
         fsWatch(this.options.srcDir, () => WssSend("reload"));
 
         let pages: string[] = [];
@@ -45,7 +45,7 @@ export class FrostGenerator {
         WssStart(server);
     }
 
-    async build() {
+    async build(configFile: string) {
         let pages: string[] = [];
         RecursiveReadDir(this.options.srcDir, (p) => {
             if (path.extname(p) == ".frost") pages.push(p);
@@ -63,8 +63,7 @@ export class FrostGenerator {
         return JSON.parse(fs.readFileSync(join(__dirname, "../../package.json"), "utf-8")).version;
     }
 
-    loadConfigFile(): this {
-        let name: string = "frost";
+    loadConfigFile(name: string): this {
         let jsonConfigFile = join(process.cwd(), `${name}.json`);
 
         if (existsSync(jsonConfigFile)) {
