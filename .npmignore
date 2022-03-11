@@ -1,4 +1,5 @@
 src/**/*.md
 __test__/ 
+__docs__/
 .github/
 .husky/
