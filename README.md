@@ -1,7 +1,6 @@
 <p align="center">
-   <img src="https://cdn.discordapp.com/attachments/911964535060070453/939549219411341362/Frost.png">
-    </img>
-    </p>
+   <img src="https://cdn.discordapp.com/attachments/911964535060070453/939549219411341362/Frost.png"/>
+</p>
 
 ## 🚀 A static site generator.
 
