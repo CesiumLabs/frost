@@ -1,12 +1,16 @@
-# Codedoc Boilerplate
+# Frost
 
-Modify `docs/md/index.md` to change the contents of this page. This will be your starting
-page on your GitHub Pages site.
+❄️ Frost is a blazing fast ⚡ SSG (static site generator) based on HTML. With frost you can easily create a static site using resources like typescript and markdown!
 
-To get started, run `codedoc check` to see which configurations you most probably need to change,
-and get instructions on how to change them. Also don't forget to check the official docs of **CODEDOC**.
+- Frost supports Typescript on HTML!
+- Frost supports Markdown!
+- Frost supports importing components!
+- Super lightweight!.
+- Easy & simple configuration!.
+
+Here are some links to get you started 👇
 
 > :Buttons
-> > :Button label=Official Docs, url=https://codedoc.cc
-
+> > :Button label=Support Server, url=https://cesiumlabs.xyz/discord
+> > :Button label=Github, url=https://github.com/cesiumlabs/frost
 > :ToCPrevNext
